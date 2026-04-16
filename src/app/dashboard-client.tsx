@@ -18,11 +18,11 @@ import {
 } from '@/lib/seed-data';
 
 const villaImages = [
-  'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=500&fit=crop&q=80',
+  '/images/villas/b056e75e-5596-4c02-b469-fc38abf10041.png',
+  '/images/villas/b266f3ba-5002-426e-9d95-8e01a73731b5.png',
+  '/images/villas/b33f3098-3eed-4f2b-8509-b9a4f8e1bfee.png',
+  '/images/villas/b42da400-f30c-4d89-9df4-3681922787a1.png',
+  '/images/villas/bb6809e5-d2b6-45c6-837a-4bed2f6879c3.png',
 ];
 
 function StatCard({ icon: Icon, label, value, color, index }: { icon: React.ElementType; label: string; value: string | number; color: string; index: number }) {
@@ -76,7 +76,7 @@ export function DashboardClient({
       {/* Hero Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=600&fit=crop&q=85"
+          src="/images/villas/villa-pool-ocean-sunset.png"
           alt="Aerial tropical island view"
           fill
           className="object-cover object-center"

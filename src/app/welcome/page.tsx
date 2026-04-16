@@ -61,10 +61,10 @@ const painPoints = [
 ];
 
 const featureImages = [
-  'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=700&h=500&fit=crop&q=80',
+  '/images/villas/a37d957f-29ef-4823-bcdd-d47c6be1c3db.png',
+  '/images/villas/a789d0ec-9fe2-45c6-b71d-d6f5841c229a.png',
+  '/images/villas/a85cb084-8fac-4aa8-a6e2-7466f2b4da5b.png',
+  '/images/villas/ab5f1464-9897-45c9-8b99-9e19d684f391.png',
 ];
 
 const features = [
@@ -155,9 +155,9 @@ export default function WelcomePage() {
       <NavHeader />
 
       {/* Hero */}
-      <section className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] flex items-center overflow-hidden">
+      <section className="relative h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px] flex items-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?w=1920&h=900&fit=crop&q=85"
+          src="/images/villas/infinity-pool-sunset.png"
           alt="Modern luxury villa with pool"
           fill
           className="object-cover object-center"
@@ -201,7 +201,7 @@ export default function WelcomePage() {
             </div>
             <div className="relative h-64 md:h-96">
               <Image
-                src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=600&fit=crop&q=85"
+                src="/images/villas/compound-aerial-night.png"
                 alt="Dashboard analytics view"
                 fill
                 className="object-cover object-center"
@@ -380,7 +380,7 @@ export default function WelcomePage() {
       {/* Final CTA */}
       <section className="relative py-20 md:py-28 text-white overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&h=600&fit=crop&q=85"
+          src="/images/villas/beach-sala-turquoise.png"
           alt="Tropical sunset"
           fill
           className="object-cover object-center"

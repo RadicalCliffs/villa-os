@@ -27,12 +27,12 @@ export const metadata: Metadata = {
 };
 
 const featureImages = [
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=700&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=700&h=500&fit=crop&q=80',
+  '/images/lifestyle/villa-breakfast-sunset.png',
+  '/images/lifestyle/staff-bedroom-flowers.png',
+  '/images/interiors/workspace-balcony-view.png',
+  '/images/lifestyle/tropical-breakfast-bay.png',
+  '/images/lifestyle/villa-dining-sunset.png',
+  '/images/lifestyle/villa-sala-ocean.png',
 ];
 
 const categories = [
@@ -124,7 +124,7 @@ export default function FeaturesPage() {
       {/* Hero */}
       <section className="relative h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px] flex items-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&h=900&fit=crop&q=85"
+          src="/images/lifestyle/terrace-ocean-breakfast.png"
           alt="Tropical villa with palm trees"
           fill
           className="object-cover object-center"
@@ -192,7 +192,7 @@ export default function FeaturesPage() {
       {/* CTA */}
       <section className="relative py-16 text-white text-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&h=600&fit=crop&q=85"
+          src="/images/villas/c914e8de-f22b-4575-9cfb-16c14fc00f9e.png"
           alt="Beach paradise"
           fill
           className="object-cover object-center"

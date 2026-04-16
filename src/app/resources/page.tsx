@@ -18,7 +18,7 @@ const articles = [
     date: 'March 12, 2026',
     slug: '/resources/scaling-villas',
     category: 'Operations',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop&q=80',
+    image: '/images/villas/d4de4cf3-02fd-490a-b199-70d96b9d2037.png',
   },
   {
     title: 'The Complete Guide to Villa Owner Reports',
@@ -27,7 +27,7 @@ const articles = [
     date: 'February 28, 2026',
     slug: '/resources',
     category: 'Reporting',
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop&q=80',
+    image: '/images/villas/d70b590e-d65e-46fe-a568-443b278b9900.png',
   },
   {
     title: 'Phuket Villa Market 2026: Trends & Opportunities',
@@ -36,7 +36,7 @@ const articles = [
     date: 'January 15, 2026',
     slug: '/resources',
     category: 'Market',
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop&q=80',
+    image: '/images/villas/da646e21-6ecb-4c5d-856a-60a206bc3636.png',
   },
   {
     title: 'Airbnb vs Booking.com: Optimizing Your Listing Mix',
@@ -45,7 +45,7 @@ const articles = [
     date: 'December 20, 2025',
     slug: '/resources',
     category: 'Distribution',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop&q=80',
+    image: '/images/villas/daa7b0fe-7a4e-4962-8e75-334d7e5352c6.png',
   },
 ];
 

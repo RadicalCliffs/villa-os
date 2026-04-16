@@ -77,7 +77,7 @@ function LoginForm() {
     <div className="min-h-screen relative flex items-center justify-center px-4">
       {/* Background Image */}
       <Image
-        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop&q=85"
+        src="/images/villas/pool-ocean-curtains.png"
         alt="Luxury villa pool area"
         fill
         className="object-cover object-center"

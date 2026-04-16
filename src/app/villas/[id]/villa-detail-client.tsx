@@ -14,18 +14,18 @@ import { formatCurrency, formatDate, getDaysBetween } from '@/lib/utils';
 import { getStaffById as seedGetStaffById } from '@/lib/seed-data';
 
 const villaExteriors = [
-  'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=500&fit=crop&q=80',
+  '/images/villas/c1753934-339d-4887-b416-14949416ccb0.png',
+  '/images/villas/c1d55643-48c1-476f-a893-9307067311e3.png',
+  '/images/villas/c2e5fe21-06ee-4f22-8914-2b960693aa79.png',
+  '/images/villas/c43e7982-27af-4532-8773-d119818943a5.png',
+  '/images/villas/c5aae25e-ba0d-4c12-a051-63ab4bb04de8.png',
 ];
 
 const villaGalleryImages = [
-  'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c0?w=600&h=400&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop&q=80',
+  '/images/interiors/living-ocean-view.png',
+  '/images/interiors/workspace-ocean-view.png',
+  '/images/interiors/dining-ocean-palms.png',
+  '/images/interiors/living-room-pool-view.png',
 ];
 
 const sourceColors: Record<string, 'danger' | 'info' | 'success' | 'warning' | 'default'> = {

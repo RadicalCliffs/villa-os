@@ -115,7 +115,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
       {/* Professional Header with Villa Image */}
       <div className="relative h-48 md:h-56 overflow-hidden print:hidden">
         <Image
-          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&h=400&fit=crop&q=85"
+          src="/images/villas/villa-pool-palms-sunset.png"
           alt="Luxury villa"
           fill
           className="object-cover object-center"
@@ -131,7 +131,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
             <div className="flex gap-2 mt-3">
               {allVillas.map((v) => (
                 <Link key={v.id as string} href={`/reports/${v.id}`}>
-                  <Badge variant={(v.id as string) === villaId ? 'emerald' : 'default'} className="cursor-pointer">
+                  <Badge variant="overlay" className="cursor-pointer">
                     {(v.name as string).replace('Villa ', '')}
                   </Badge>
                 </Link>

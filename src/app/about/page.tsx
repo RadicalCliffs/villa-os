@@ -67,7 +67,7 @@ export default function AboutPage() {
       {/* Hero with Image */}
       <section className="relative h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px] flex items-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1920&h=900&fit=crop&q=85"
+          src="/images/villas/ccb90dd2-8369-4379-acaa-916c6f661631.png"
           alt="Tropical island aerial view"
           fill
           className="object-cover object-center"
@@ -174,7 +174,7 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="relative py-16 text-white text-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&h=600&fit=crop&q=85"
+          src="/images/villas/d2ed3a17-4f41-4d9f-b3fa-3c60cf765296.png"
           alt="Villa palms"
           fill
           className="object-cover object-center"
