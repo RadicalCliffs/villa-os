@@ -1,23 +1,82 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Home, Mail, Lock, User, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/client';
 
 type AuthMode = 'login' | 'signup';
 type UserRole = 'owner' | 'manager' | 'staff';
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-br from-emerald-800 via-green-700 to-emerald-600 flex items-center justify-center"><div className="text-white">Loading...</div></div>}>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const [mode, setMode] = useState<AuthMode>('login');
   const [role, setRole] = useState<UserRole>('manager');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    const supabase = createClient();
+
+    if (mode === 'login') {
+      const { error: err } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (err) {
+        setError(err.message);
+        setLoading(false);
+        return;
+      }
+    } else {
+      const { error: err } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            phone,
+            role,
+          },
+        },
+      });
+      if (err) {
+        setError(err.message);
+        setLoading(false);
+        return;
+      }
+    }
+
+    router.push(redirect);
+    router.refresh();
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-800 via-green-700 to-emerald-600 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 animate-fade-in">
           <div className="inline-flex items-center gap-3 text-white mb-2">
             <Home className="h-10 w-10" />
             <h1 className="text-3xl font-bold tracking-tight">VillaOS</h1>
@@ -25,7 +84,7 @@ export default function LoginPage() {
           <p className="text-emerald-200">Villa Management for Phuket</p>
         </div>
 
-        <Card className="shadow-xl">
+        <Card className="shadow-xl animate-slide-up">
           <CardContent className="py-8 px-6">
             {/* Mode Toggle */}
             <div className="flex bg-gray-100 rounded-lg p-1 mb-6">
@@ -71,8 +130,14 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                {error}
+              </div>
+            )}
+
             {/* Form */}
-            <form onSubmit={e => e.preventDefault()} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {mode === 'signup' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
@@ -81,6 +146,8 @@ export default function LoginPage() {
                     <input
                       type="text"
                       placeholder="Your full name"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
                       className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     />
                   </div>
@@ -94,6 +161,9 @@ export default function LoginPage() {
                   <input
                     type="email"
                     placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   />
                 </div>
@@ -106,6 +176,10 @@ export default function LoginPage() {
                   <input
                     type="password"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
                     className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   />
                 </div>
@@ -119,14 +193,16 @@ export default function LoginPage() {
                     <input
                       type="tel"
                       placeholder="+66 xx xxx xxxx"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     />
                   </div>
                 </div>
               )}
 
-              <Button type="submit" className="w-full" size="lg">
-                {mode === 'login' ? 'Sign In' : 'Create Account'}
+              <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}
               </Button>
             </form>
 

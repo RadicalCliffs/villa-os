@@ -12,15 +12,142 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Glass morphism card effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .glass-card {
+  background: rgba(30, 30, 30, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+.animate-stagger-in {
+  opacity: 0;
+  animation: stagger-in 0.4s ease-out forwards;
+}
+
+/* Dark mode base styles */
+[data-theme="dark"] body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .bg-gray-50 {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .bg-white {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .text-gray-900 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .text-gray-500 {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .border-gray-200 {
+  border-color: #334155;
+}
+
+[data-theme="dark"] .border-gray-100 {
+  border-color: #1e293b;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  .print\:break-before-page {
+    break-before: page;
+  }
+
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  header, nav, .print\:hidden {
+    display: none !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Ensure cards print cleanly */
+  .rounded-xl {
+    border-radius: 4px;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  table th, table td {
+    padding: 4px 8px;
+  }
 }

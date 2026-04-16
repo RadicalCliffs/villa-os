@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,53 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "VillaOS - Villa Management for Phuket",
-  description: "Villa Management Operating System for Phuket, Thailand. Manage reservations, tasks, staff, and owner reporting.",
+  description: "Villa Management Operating System for Phuket, Thailand. Manage reservations, tasks, staff, and owner reporting from one dashboard.",
+  keywords: [
+    "villa management",
+    "Phuket",
+    "property management",
+    "villa rental",
+    "task management",
+    "owner reporting",
+    "Thailand",
+    "vacation rental",
+    "Airbnb management",
+    "Booking.com",
+  ],
+  authors: [{ name: "VillaOS" }],
+  creator: "VillaOS",
+  metadataBase: new URL("https://villaos.co"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://villaos.co",
+    siteName: "VillaOS",
+    title: "VillaOS - The Operating System for Phuket Villa Managers",
+    description:
+      "Manage 50+ villas from one dashboard. Automate tasks, track revenue, delight owners. Built for Phuket villa managers.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VillaOS Dashboard Preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VillaOS - The Operating System for Phuket Villa Managers",
+    description:
+      "Manage 50+ villas from one dashboard. Automate tasks, track revenue, delight owners.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -26,8 +73,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-gray-50">{children}</body>
+      <body className="min-h-full flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
