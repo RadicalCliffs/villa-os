@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Menu, X, Moon, Sun, LogOut, User } from 'lucide-react';
+import { Menu, X, Moon, Sun, LogOut, User } from 'lucide-react';
 import { useAuth } from '@/lib/supabase/auth-context';
 import { useTheme } from '@/components/theme-provider';
 
@@ -41,9 +41,18 @@ export function NavHeader() {
     <header className="bg-gradient-to-r from-emerald-800 to-green-600 text-white shadow-lg print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href={user && !isMarketingPage ? '/' : '/welcome'} className="flex items-center gap-3">
-            <Home className="h-8 w-8" />
-            <h1 className="text-xl font-bold tracking-tight">VillaOS</h1>
+          <Link href={user && !isMarketingPage ? '/' : '/welcome'} className="flex items-center gap-2">
+            <svg className="h-8 w-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 8L16 24L28 8" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M26 7c-2 2-3 5-2 8" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M27 6c-4 1-6 4-6 7" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+            <div className="flex flex-col">
+              <h1 className="text-xl font-bold tracking-tight leading-tight">VillaOS</h1>
+              <span className="hidden lg:block text-[10px] font-semibold tracking-wider uppercase text-[#D4A843]">
+                Your Villas. On Autopilot.
+              </span>
+            </div>
           </Link>
 
           {/* Desktop nav */}

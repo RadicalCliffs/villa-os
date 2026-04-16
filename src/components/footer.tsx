@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Home } from 'lucide-react';
+// Brand mark used inline
 
 const productLinks = [
   { href: '/features', label: 'Features' },
@@ -28,12 +28,19 @@ const legalLinks = [
 export function Footer() {
   return (
     <footer className="bg-emerald-950 text-white print:hidden">
+      {/* Gradient separator line */}
+      <div className="h-1 bg-gradient-to-r from-[#0D2818] via-[#059669] via-[#10B981] to-[#D4A843]" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/welcome" className="flex items-center gap-2 mb-4">
-              <Home className="h-7 w-7 text-emerald-400" />
+              <svg className="h-7 w-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 8L16 24L28 8" stroke="#10B981" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M26 7c-2 2-3 5-2 8" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+                <path d="M27 6c-4 1-6 4-6 7" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+              </svg>
               <span className="text-xl font-bold">VillaOS</span>
             </Link>
             <p className="text-emerald-300/70 text-sm leading-relaxed">

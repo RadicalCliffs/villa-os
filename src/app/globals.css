@@ -3,6 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* VillaOS Brand Colors */
+  --brand-forest: #0D2818;
+  --brand-emerald: #059669;
+  --brand-green: #10B981;
+  --brand-gold: #D4A843;
+  --brand-limestone: #F5F0E8;
+  --brand-gradient: linear-gradient(135deg, #0D2818 0%, #059669 50%, #10B981 100%);
+  --brand-gradient-gold: linear-gradient(135deg, #D4A843 0%, #E8C36A 100%);
 }
 
 @theme inline {
