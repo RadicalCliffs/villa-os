@@ -2,6 +2,7 @@
 
 import { CalendarCheck, CalendarX, ClipboardList, DollarSign, BedDouble, AlertTriangle, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency, formatDate } from '@/lib/utils';
@@ -16,11 +17,20 @@ import {
   getStaffById as seedGetStaffById,
 } from '@/lib/seed-data';
 
+const villaImages = [
+  'photo-1613490493576-7fde63acd811',
+  'photo-1600596542815-ffad4c1539a9',
+  'photo-1600585154340-be6161a56a0c',
+  'photo-1512917774080-9991f1c4c750',
+  'photo-1580587771525-78b9dba3b914',
+  'photo-1600607687939-ce8a6c25118c',
+];
+
 function StatCard({ icon: Icon, label, value, color, index }: { icon: React.ElementType; label: string; value: string | number; color: string; index: number }) {
   return (
-    <Card className="glass-card group hover:scale-[1.02] transition-transform" style={{ animationDelay: `${index * 80}ms` }}>
+    <Card className="glass-card card-hover group" style={{ animationDelay: `${index * 80}ms` }}>
       <CardContent className="flex items-center gap-4 py-5">
-        <div className={`p-3 rounded-lg ${color} shadow-lg`}>
+        <div className={`p-3 rounded-xl ${color} shadow-lg`}>
           <Icon className="h-6 w-6 text-white" />
         </div>
         <div>
@@ -64,7 +74,25 @@ export function DashboardClient({
     <div className="min-h-screen bg-gray-50">
       <NavHeader />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Hero Banner */}
+      <div className="relative h-48 md:h-64 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1506953823645-5e23ad830f43?w=1600&h=500&fit=crop&q=80"
+          alt="Aerial tropical island view"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/80 via-emerald-800/60 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <h1 className="text-3xl md:text-4xl font-bold text-white">Welcome back</h1>
+            <p className="text-emerald-100/80 mt-2 text-lg">Here is your portfolio overview for today.</p>
+          </div>
+        </div>
+      </div>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 -mt-8 relative z-10">
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <StatCard icon={BedDouble} label="Total Villas" value={villas.length} color="bg-emerald-600" index={0} />
@@ -76,30 +104,40 @@ export function DashboardClient({
 
         {/* Villa Overview Grid */}
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Villa Overview</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           {villas.map((villa: Record<string, unknown>, index: number) => {
             const villaId = villa.id as string;
             const villaStatus = hasDbData ? 'vacant' : seedGetVillaStatus(villaId);
             const config = statusConfig[villaStatus] || statusConfig.vacant;
             const pending = hasDbData ? (villa.active_reservations as number) || 0 : seedGetPendingTasksCount(villaId);
             const next = hasDbData ? null : seedGetNextReservation(villaId);
+            const imageId = villaImages[index % villaImages.length];
 
             return (
               <Link key={villaId} href={`/villas/${villaId}`}>
                 <Card
-                  className="hover:shadow-md transition-all cursor-pointer h-full animate-stagger-in"
+                  className="card-hover cursor-pointer h-full animate-stagger-in overflow-hidden"
                   style={{ animationDelay: `${index * 60}ms` }}
                 >
-                  <CardContent className="py-5">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="font-semibold text-gray-900">{villa.name as string}</h3>
-                        <p className="text-sm text-gray-500">
-                          {villa.bedrooms as number} BR | {formatCurrency(villa.nightly_rate as number)}/night
-                        </p>
-                      </div>
+                  <div className="relative h-40">
+                    <Image
+                      src={`https://images.unsplash.com/${imageId}?w=600&h=300&fit=crop&q=80`}
+                      alt={villa.name as string}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute top-3 right-3">
                       <Badge variant={config.variant}>{config.label}</Badge>
                     </div>
+                    <div className="absolute bottom-3 left-3">
+                      <h3 className="font-bold text-white text-lg drop-shadow-lg">{villa.name as string}</h3>
+                    </div>
+                  </div>
+                  <CardContent className="py-4">
+                    <p className="text-sm text-gray-500 mb-2">
+                      {villa.bedrooms as number} BR | {formatCurrency(villa.nightly_rate as number)}/night
+                    </p>
                     <div className="space-y-1 text-sm text-gray-600">
                       {next && <p>Next reservation: {formatDate(next.check_in)}</p>}
                       {!next && !hasDbData && <p className="text-gray-400">No upcoming reservations</p>}
@@ -123,7 +161,7 @@ export function DashboardClient({
           {revenueData.length > 0 && (
             <div className="lg:col-span-1">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Revenue Comparison</h2>
-              <Card>
+              <Card className="card-hover">
                 <CardContent className="py-4">
                   <RevenueComparison data={revenueData as Array<{ villa_id: string; total_revenue: number; total_expenses: number; net_income: number; occupancy_rate: number; villas: { id: string; name: string } | null }>} />
                 </CardContent>
@@ -134,7 +172,7 @@ export function DashboardClient({
           {/* Today Schedule */}
           <div>
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Today&apos;s Schedule</h2>
-            <Card>
+            <Card className="card-hover">
               <CardContent className="py-4 space-y-4">
                 {todayCheckIns.length > 0 && (
                   <div>
@@ -191,7 +229,7 @@ export function DashboardClient({
               <AlertTriangle className="h-5 w-5 text-red-500" />
               Urgent Tasks
             </h2>
-            <Card>
+            <Card className="card-hover">
               <CardContent className="py-4">
                 {urgentTasks.length > 0 ? (
                   <div className="space-y-3">

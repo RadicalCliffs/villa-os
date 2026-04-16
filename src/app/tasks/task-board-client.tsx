@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { ClipboardList, Filter, Plus, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,12 +16,21 @@ type TaskStatus = 'pending' | 'in_progress' | 'completed';
 type TaskType = 'cleaning' | 'pool' | 'garden' | 'maintenance' | 'repair' | 'laundry';
 
 const taskTypeColors: Record<string, string> = {
-  cleaning: 'bg-blue-100 text-blue-800',
-  pool: 'bg-cyan-100 text-cyan-800',
-  garden: 'bg-green-100 text-green-800',
-  maintenance: 'bg-orange-100 text-orange-800',
-  repair: 'bg-red-100 text-red-800',
-  laundry: 'bg-purple-100 text-purple-800',
+  cleaning: 'bg-blue-100 text-blue-800 border-l-blue-500',
+  pool: 'bg-cyan-100 text-cyan-800 border-l-cyan-500',
+  garden: 'bg-green-100 text-green-800 border-l-green-500',
+  maintenance: 'bg-orange-100 text-orange-800 border-l-orange-500',
+  repair: 'bg-red-100 text-red-800 border-l-red-500',
+  laundry: 'bg-purple-100 text-purple-800 border-l-purple-500',
+};
+
+const taskTypeBorderColors: Record<string, string> = {
+  cleaning: 'border-l-blue-500',
+  pool: 'border-l-cyan-500',
+  garden: 'border-l-green-500',
+  maintenance: 'border-l-orange-500',
+  repair: 'border-l-red-500',
+  laundry: 'border-l-purple-500',
 };
 
 const priorityVariants: Record<string, 'default' | 'success' | 'warning' | 'danger'> = {
@@ -74,7 +84,6 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
     } else {
       toast('Task created');
       setShowAddForm(false);
-      // Optimistic: add to local
       window.location.reload();
     }
   }
@@ -102,7 +111,6 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
     const taskId = e.dataTransfer.getData('text/plain');
     if (!taskId) return;
 
-    // Optimistic update
     setTasks((prev) =>
       prev.map((t) => ((t.id as string) === taskId ? { ...t, status: newStatus } : t))
     );
@@ -111,7 +119,6 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
       const result = await updateTaskStatus(taskId, newStatus);
       if (result.error) {
         toast(result.error, 'error');
-        // Revert
         setTasks(initialTasks);
       } else {
         toast(`Task moved to ${newStatus.replace('_', ' ')}`);
@@ -122,10 +129,6 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
   }
 
   function getVillaName(villaId: string): string {
-    if (hasDbData) {
-      const v = villas.find((v) => v.id === villaId);
-      return (v?.name as string) || '';
-    }
     const v = villas.find((v) => v.id === villaId);
     return (v?.name as string) || '';
   }
@@ -143,12 +146,28 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
     <div className="min-h-screen bg-gray-50">
       <NavHeader />
 
+      {/* Header Banner */}
+      <div className="relative h-32 md:h-40 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600&h=400&fit=crop&q=80"
+          alt="Team working"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-indigo-800/70 to-blue-700/60" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <h2 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+              <ClipboardList className="h-7 w-7" />
+              Task Board
+            </h2>
+            <p className="text-white/70 mt-1">Drag tasks between columns to update status</p>
+          </div>
+        </div>
+      </div>
+
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <ClipboardList className="h-6 w-6 text-emerald-600" />
-            Task Board
-          </h2>
+        <div className="flex items-center justify-end mb-6">
           <Button onClick={() => setShowAddForm(!showAddForm)} className="flex items-center gap-2">
             {showAddForm ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
             {showAddForm ? 'Close' : 'Add Task'}
@@ -249,6 +268,7 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
                       : getVillaName(task.villa_id as string);
                     const staffInfo = getStaffInfo(task);
                     const isDragging = draggingId === (task.id as string);
+                    const borderColor = taskTypeBorderColors[task.type as string] || 'border-l-gray-300';
 
                     return (
                       <Card
@@ -256,13 +276,13 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
                         draggable
                         onDragStart={(e) => handleDragStart(e, task.id as string)}
                         onDragEnd={() => setDraggingId(null)}
-                        className={`cursor-grab active:cursor-grabbing hover:shadow-md transition-all ${
-                          isDragging ? 'opacity-50 scale-95' : ''
+                        className={`cursor-grab active:cursor-grabbing card-hover border-l-4 ${borderColor} ${
+                          isDragging ? 'opacity-50 scale-95 rotate-1' : ''
                         }`}
                       >
                         <CardContent className="py-3">
                           <div className="flex items-start justify-between mb-2">
-                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full capitalize ${taskTypeColors[task.type as string] || ''}`}>
+                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full capitalize ${taskTypeColors[task.type as string]?.split(' ').slice(0, 2).join(' ') || ''}`}>
                               {task.type as string}
                             </span>
                             <Badge variant={priorityVariants[task.priority as string] || 'default'}>{task.priority as string}</Badge>

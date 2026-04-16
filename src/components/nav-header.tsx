@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Moon, Sun, LogOut, User } from 'lucide-react';
@@ -26,6 +26,15 @@ export function NavHeader() {
   const { user, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 20);
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const isMarketingPage = ['/welcome', '/features', '/pricing', '/about', '/contact', '/resources', '/terms', '/privacy'].some(
     (p) => pathname === p || pathname.startsWith(p + '/')
@@ -38,7 +47,13 @@ export function NavHeader() {
       : marketingLinks;
 
   return (
-    <header className="bg-gradient-to-r from-emerald-800 to-green-600 text-white shadow-lg print:hidden">
+    <header
+      className={`sticky top-0 z-50 text-white print:hidden transition-all duration-300 ${
+        scrolled
+          ? 'bg-emerald-900/95 backdrop-blur-xl shadow-lg'
+          : 'bg-gradient-to-r from-emerald-800 to-green-600 shadow-lg'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href={user && !isMarketingPage ? '/' : '/welcome'} className="flex items-center gap-2">

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-// Brand mark used inline
 
 const productLinks = [
   { href: '/features', label: 'Features' },
@@ -27,7 +26,23 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-emerald-950 text-white print:hidden">
+    <footer className="bg-emerald-950 text-white print:hidden relative">
+      {/* Wave SVG separator */}
+      <div className="absolute -top-16 left-0 right-0 h-16 overflow-hidden pointer-events-none">
+        <svg
+          className="absolute bottom-0 w-full h-16"
+          viewBox="0 0 1440 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 32C120 48 240 56 360 48C480 40 600 16 720 8C840 0 960 8 1080 24C1200 40 1320 56 1380 60L1440 64V64H0V32Z"
+            fill="#022c22"
+          />
+        </svg>
+      </div>
+
       {/* Gradient separator line */}
       <div className="h-1 bg-gradient-to-r from-[#0D2818] via-[#059669] via-[#10B981] to-[#D4A843]" />
 

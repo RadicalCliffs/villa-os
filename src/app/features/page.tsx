@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import {
   Building2,
   CalendarDays,
@@ -25,12 +26,22 @@ export const metadata: Metadata = {
   description: 'Explore every feature of VillaOS: property management, reservations, task boards, financial reporting, staff coordination, and calendar sync.',
 };
 
+const featureImages = [
+  'photo-1600596542815-ffad4c1539a9',
+  'photo-1600607687939-ce8a6c25118c',
+  'photo-1551434678-e076c223a692',
+  'photo-1460925895917-afdab827c52f',
+  'photo-1556761175-4b46a572b786',
+  'photo-1600566753190-17f0baa2a6c0',
+];
+
 const categories = [
   {
     title: 'Property Management',
     description:
       'Build a complete digital profile for every villa in your portfolio. Upload photo galleries, track amenities like pool type, bedroom count, and garden size. Store owner contact details, management agreements, and commission structures all in one place. When a new staff member joins your team, they can get up to speed on any property in minutes instead of days.',
     icon: Building2,
+    image: featureImages[0],
     features: [
       { icon: Building2, label: 'Villa profiles with complete details' },
       { icon: ImageIcon, label: 'Photo galleries for each property' },
@@ -43,6 +54,7 @@ const categories = [
     description:
       'Pull bookings from Airbnb, Booking.com, Agoda, and direct reservations into a single calendar view. See guest names, check-in times, special requests, and payment status at a glance. Color-coded status indicators make it obvious which bookings need attention. No more switching between five browser tabs to figure out who is arriving tomorrow.',
     icon: CalendarDays,
+    image: featureImages[1],
     features: [
       { icon: Globe, label: 'Multi-platform sync (Airbnb, Booking.com, direct)' },
       { icon: CalendarDays, label: 'Unified calendar view' },
@@ -55,6 +67,7 @@ const categories = [
     description:
       'A visual kanban board designed for villa operations. Create tasks for cleaning, pool maintenance, garden care, and repairs. Drag cards between columns to update status. Assign tasks to specific staff members and set priority levels. When you move a task, your staff receives an instant WhatsApp notification with all the details they need. No more chasing people for updates.',
     icon: ClipboardList,
+    image: featureImages[2],
     features: [
       { icon: Kanban, label: 'Kanban board with drag-and-drop' },
       { icon: UserCog, label: 'Staff assignment per task' },
@@ -67,6 +80,7 @@ const categories = [
     description:
       'Stop spending days building monthly owner reports in spreadsheets. VillaOS automatically tracks revenue by source, records expenses against each property, and calculates management commissions. Generate polished profit and loss statements with one click. Share them with owners via a secure link or download as a professional PDF. The numbers are always up to date.',
     icon: DollarSign,
+    image: featureImages[3],
     features: [
       { icon: BarChart3, label: 'Revenue breakdown by source' },
       { icon: DollarSign, label: 'Expense tracking per villa' },
@@ -79,6 +93,7 @@ const categories = [
     description:
       'Keep a roster of every cleaner, pool technician, gardener, and handyman you work with. Track their availability, daily rates, and which villas they prefer. View each person\'s task history to identify your most reliable team members. When assigning tasks, the system shows you who is available and who is already booked so you can make smart decisions fast.',
     icon: Users,
+    image: featureImages[4],
     features: [
       { icon: Users, label: 'Staff profiles and contact info' },
       { icon: Clock, label: 'Availability and schedule tracking' },
@@ -91,6 +106,7 @@ const categories = [
     description:
       'Export your villa calendars to iCal so bookings appear in Google Calendar, Apple Calendar, or Outlook automatically. View an occupancy heatmap for the entire year to spot low seasons and plan promotional pricing. Track check-in and check-out times across all properties. Seasonal analysis helps you understand when to raise rates and when to run deals.',
     icon: CalendarSync,
+    image: featureImages[5],
     features: [
       { icon: CalendarSync, label: 'iCal export to any calendar app' },
       { icon: BarChart3, label: 'Occupancy heatmap visualization' },
@@ -106,12 +122,19 @@ export default function FeaturesPage() {
       <NavHeader />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-700 text-white py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&h=600&fit=crop&q=80"
+          alt="Tropical villa with palm trees"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/90 via-emerald-800/80 to-emerald-700/70" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
             Every tool a villa manager needs
           </h1>
-          <p className="mt-6 text-lg text-emerald-100/70 max-w-2xl mx-auto">
+          <p className="mt-6 text-lg text-white/70 max-w-2xl mx-auto">
             Six integrated modules designed specifically for Phuket villa operations.
             No bloat, no complexity, no learning curve.
           </p>
@@ -119,7 +142,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Feature Categories */}
-      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900 bg-dot-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           {categories.map((cat, i) => (
             <div key={cat.title} className={`flex flex-col ${i % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-start`}>
@@ -142,10 +165,23 @@ export default function FeaturesPage() {
                 </ul>
               </div>
 
-              {/* Screenshot placeholder */}
+              {/* Screenshot-style image */}
               <div className="flex-1 w-full">
-                <div className="bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900/30 dark:to-green-900/30 rounded-2xl h-72 md:h-80 flex items-center justify-center border border-emerald-200/50 dark:border-emerald-700/30">
-                  <cat.icon className="h-20 w-20 text-emerald-400/30" />
+                <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200/50 dark:border-gray-700/30">
+                  <div className="bg-gray-100 dark:bg-gray-700 p-1.5 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-300" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-yellow-300" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-green-300" />
+                    <span className="ml-3 text-xs text-gray-400">villaos.app</span>
+                  </div>
+                  <div className="relative h-72 md:h-80">
+                    <Image
+                      src={`https://images.unsplash.com/${cat.image}?w=700&h=500&fit=crop&q=80`}
+                      alt={cat.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -154,10 +190,17 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-emerald-700 text-white text-center">
-        <div className="max-w-2xl mx-auto px-4">
+      <section className="relative py-16 text-white text-center overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=1920&h=400&fit=crop&q=80"
+          alt="Beach paradise"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-emerald-800/80" />
+        <div className="max-w-2xl mx-auto px-4 relative z-10">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to simplify your villa operations?</h2>
-          <p className="text-emerald-100/70 mb-8">Start free with up to 3 villas. No credit card required.</p>
+          <p className="text-white/70 mb-8">Start free with up to 3 villas. No credit card required.</p>
           <a
             href="/login"
             className="inline-flex items-center gap-2 bg-white text-emerald-800 hover:bg-emerald-50 px-8 py-3 rounded-xl font-bold transition-colors"

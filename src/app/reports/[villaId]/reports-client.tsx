@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, TrendingUp, TrendingDown, Percent, Calendar, Share2, Download, DollarSign, Printer } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -10,11 +11,11 @@ import { OccupancyHeatmap } from '@/components/occupancy-heatmap';
 import { useToast } from '@/components/ui/toast';
 import { formatCurrency, formatDate } from '@/lib/utils';
 
-function MetricCard({ icon: Icon, label, value, color }: { icon: React.ElementType; label: string; value: string; color: string }) {
+function MetricCard({ icon: Icon, label, value, color, gradient }: { icon: React.ElementType; label: string; value: string; color: string; gradient?: string }) {
   return (
-    <Card className="glass-card">
+    <Card className={`glass-card card-hover ${gradient || ''}`}>
       <CardContent className="flex items-center gap-4 py-5">
-        <div className={`p-3 rounded-lg ${color} shadow-lg`}>
+        <div className={`p-3 rounded-xl ${color} shadow-lg`}>
           <Icon className="h-6 w-6 text-white" />
         </div>
         <div>
@@ -35,7 +36,7 @@ function BarChart({ data, maxValue }: { data: { label: string; value: number; co
             <span className="text-gray-700">{item.label}</span>
             <span className="font-medium text-gray-900">{formatCurrency(item.value)}</span>
           </div>
-          <div className="w-full bg-gray-100 rounded-full h-4">
+          <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
             <div
               className={`h-4 rounded-full ${item.color} transition-all duration-700`}
               style={{ width: `${Math.max(5, (item.value / maxValue) * 100)}%` }}
@@ -77,7 +78,6 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
   const { toast } = useToast();
   const latestReport = reports[0];
 
-  // Revenue by source
   const revenueBySource: Record<string, number> = {};
   for (const r of reservations) {
     if ((r.status as string) !== 'cancelled') {
@@ -87,7 +87,6 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
   }
   const maxRevenue = Math.max(...Object.values(revenueBySource), 1);
 
-  // Expenses by category
   const expensesByCategory: Record<string, number> = {};
   for (const e of expenses) {
     const cat = e.category as string;
@@ -95,7 +94,6 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
   }
   const maxExpense = Math.max(...Object.values(expensesByCategory), 1);
 
-  // Monthly comparison
   const monthlyData = reports.slice(0, 4).reverse();
   const maxMonthlyRevenue = Math.max(...monthlyData.map((r) => Number(r.total_revenue)), 1);
 
@@ -114,22 +112,23 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
     <div className="min-h-screen bg-gray-50">
       <NavHeader />
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:max-w-none print:px-8">
-        <Link href="/" className="inline-flex items-center text-sm text-emerald-600 hover:text-emerald-700 mb-6 print:hidden">
-          <ArrowLeft className="h-4 w-4 mr-1" /> Back to Dashboard
-        </Link>
-
-        {/* Print header */}
-        <div className="hidden print:block mb-6">
-          <h1 className="text-2xl font-bold">VillaOS Owner Report</h1>
-        </div>
-
-        {/* Report Header */}
-        <div className="flex items-start justify-between mb-8">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900">{villa.name as string}</h2>
-            <p className="text-gray-500 mt-1">Owner Report — {currentMonth}</p>
-            <div className="flex gap-2 mt-2 print:hidden">
+      {/* Professional Header with Villa Image */}
+      <div className="relative h-48 md:h-56 overflow-hidden print:hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&h=400&fit=crop&q=80"
+          alt="Luxury villa"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/85 via-emerald-800/70 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <Link href="/" className="inline-flex items-center text-sm text-white/70 hover:text-white mb-3">
+              <ArrowLeft className="h-4 w-4 mr-1" /> Back to Dashboard
+            </Link>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">{villa.name as string}</h2>
+            <p className="text-white/70 mt-1">Owner Report — {currentMonth}</p>
+            <div className="flex gap-2 mt-3">
               {allVillas.map((v) => (
                 <Link key={v.id as string} href={`/reports/${v.id}`}>
                   <Badge variant={(v.id as string) === villaId ? 'emerald' : 'default'} className="cursor-pointer">
@@ -139,19 +138,34 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
               ))}
             </div>
           </div>
-          <div className="flex gap-2 print:hidden">
-            <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handleCopyLink}>
-              <Share2 className="h-4 w-4" /> Copy Link
+        </div>
+      </div>
+
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:max-w-none print:px-8">
+        {/* Print-only back link */}
+        <Link href="/" className="hidden print:hidden inline-flex items-center text-sm text-emerald-600 hover:text-emerald-700 mb-6">
+          <ArrowLeft className="h-4 w-4 mr-1" /> Back to Dashboard
+        </Link>
+
+        {/* Print header */}
+        <div className="hidden print:block mb-6">
+          <h1 className="text-2xl font-bold">VillaOS Owner Report</h1>
+          <p className="text-gray-600">{villa.name as string} — {currentMonth}</p>
+        </div>
+
+        {/* Action buttons */}
+        <div className="flex justify-end gap-2 mb-6 print:hidden">
+          <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handleCopyLink}>
+            <Share2 className="h-4 w-4" /> Copy Link
+          </Button>
+          <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handlePrint}>
+            <Printer className="h-4 w-4" /> PDF
+          </Button>
+          <a href={`/api/ical/${villaId}`}>
+            <Button variant="outline" size="sm" className="flex items-center gap-1">
+              <Download className="h-4 w-4" /> iCal
             </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handlePrint}>
-              <Printer className="h-4 w-4" /> PDF
-            </Button>
-            <a href={`/api/ical/${villaId}`}>
-              <Button variant="outline" size="sm" className="flex items-center gap-1">
-                <Download className="h-4 w-4" /> iCal
-              </Button>
-            </a>
-          </div>
+          </a>
         </div>
 
         {/* Key Metrics */}
@@ -165,7 +179,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <Card>
+          <Card className="card-hover">
             <CardHeader><h3 className="font-semibold text-gray-900">Revenue by Source</h3></CardHeader>
             <CardContent>
               <BarChart
@@ -179,7 +193,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="card-hover">
             <CardHeader><h3 className="font-semibold text-gray-900">Expense Categories</h3></CardHeader>
             <CardContent>
               {Object.keys(expensesByCategory).length > 0 ? (
@@ -200,7 +214,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
 
         {/* Monthly Comparison */}
         {monthlyData.length > 0 && (
-          <Card className="mb-8">
+          <Card className="mb-8 card-hover">
             <CardHeader><h3 className="font-semibold text-gray-900">Monthly Comparison</h3></CardHeader>
             <CardContent>
               <div className="flex items-end gap-4 h-48">
@@ -208,8 +222,8 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
                   <div key={report.month as string} className="flex-1 flex flex-col items-center">
                     <div className="w-full flex flex-col items-center gap-1">
                       <span className="text-xs font-medium text-gray-900">{formatCurrency(report.total_revenue as number)}</span>
-                      <div className="w-full bg-emerald-500 rounded-t-lg min-h-[8px]" style={{ height: `${(Number(report.total_revenue) / maxMonthlyRevenue) * 140}px` }} />
-                      <div className="w-full bg-red-400 rounded-b-lg min-h-[4px]" style={{ height: `${(Number(report.total_expenses) / maxMonthlyRevenue) * 140}px` }} />
+                      <div className="w-full bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-t-lg min-h-[8px]" style={{ height: `${(Number(report.total_revenue) / maxMonthlyRevenue) * 140}px` }} />
+                      <div className="w-full bg-gradient-to-t from-red-500 to-red-300 rounded-b-lg min-h-[4px]" style={{ height: `${(Number(report.total_expenses) / maxMonthlyRevenue) * 140}px` }} />
                     </div>
                     <span className="text-xs text-gray-500 mt-2">{report.month as string}</span>
                   </div>
@@ -261,7 +275,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
                       const commission = Number(r.total_revenue) * Number(r.commission_rate || 0);
                       const net = Number(r.total_revenue) - commission;
                       return (
-                        <tr key={r.id as string} className="border-b border-gray-50">
+                        <tr key={r.id as string} className="border-b border-gray-50 hover:bg-gray-50/50">
                           <td className="py-2 font-medium text-gray-900">{r.guest_name as string}</td>
                           <td className="py-2 text-gray-600">{formatDate(r.check_in as string)}</td>
                           <td className="py-2 text-gray-600">{formatDate(r.check_out as string)}</td>

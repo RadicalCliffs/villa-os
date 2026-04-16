@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, BedDouble, Users, MapPin, Calendar, DollarSign, ClipboardList, Plus, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +12,14 @@ import { ExpenseForm } from '@/components/expense-form';
 import { useToast } from '@/components/ui/toast';
 import { formatCurrency, formatDate, getDaysBetween } from '@/lib/utils';
 import { getStaffById as seedGetStaffById } from '@/lib/seed-data';
+
+const villaGalleryImages = [
+  'photo-1613490493576-7fde63acd811',
+  'photo-1600607687939-ce8a6c25118c',
+  'photo-1560448204-e02f11c3d0e2',
+  'photo-1600566753190-17f0baa2a6c0',
+  'photo-1600585154526-990dced4db0d',
+];
 
 const sourceColors: Record<string, 'danger' | 'info' | 'success' | 'warning' | 'default'> = {
   airbnb: 'danger',
@@ -83,29 +92,57 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
     <div className="min-h-screen bg-gray-50">
       <NavHeader />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link href="/" className="inline-flex items-center text-sm text-emerald-600 hover:text-emerald-700 mb-6">
-          <ArrowLeft className="h-4 w-4 mr-1" /> Back to Dashboard
-        </Link>
+      {/* Villa Hero Header with Image */}
+      <div className="relative h-72 md:h-96 overflow-hidden">
+        <Image
+          src={`https://images.unsplash.com/${villaGalleryImages[0]}?w=1600&h=600&fit=crop&q=80`}
+          alt={villa.name as string}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+          <div className="max-w-7xl mx-auto">
+            <Link href="/" className="inline-flex items-center text-sm text-white/80 hover:text-white mb-4">
+              <ArrowLeft className="h-4 w-4 mr-1" /> Back to Dashboard
+            </Link>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">{villa.name as string}</h2>
+            <div className="flex flex-wrap gap-4 mt-3 text-sm text-white/80">
+              <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {villa.address as string}</span>
+              <span className="flex items-center gap-1"><BedDouble className="h-4 w-4" /> {villa.bedrooms as number} Bedrooms</span>
+              <span className="flex items-center gap-1"><Users className="h-4 w-4" /> Max {villa.max_guests as number} Guests</span>
+              <span className="flex items-center gap-1"><DollarSign className="h-4 w-4" /> {formatCurrency(villa.nightly_rate as number)}/night</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        {/* Villa Header */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">{villa.name as string}</h2>
-          <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-600">
-            <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {villa.address as string}</span>
-            <span className="flex items-center gap-1"><BedDouble className="h-4 w-4" /> {villa.bedrooms as number} Bedrooms</span>
-            <span className="flex items-center gap-1"><Users className="h-4 w-4" /> Max {villa.max_guests as number} Guests</span>
-            <span className="flex items-center gap-1"><DollarSign className="h-4 w-4" /> {formatCurrency(villa.nightly_rate as number)}/night</span>
-          </div>
-          <div className="flex flex-wrap gap-2 mt-3">
-            {amenities.map((a) => <Badge key={a} variant="emerald">{a}</Badge>)}
-          </div>
+      {/* Image Gallery */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+        <div className="grid grid-cols-4 gap-2 rounded-xl overflow-hidden shadow-lg">
+          {villaGalleryImages.slice(1, 5).map((img, i) => (
+            <div key={i} className="relative h-24 md:h-32">
+              <Image
+                src={`https://images.unsplash.com/${img}?w=400&h=200&fit=crop&q=80`}
+                alt={`Villa interior ${i + 1}`}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-wrap gap-2 mb-6">
+          {amenities.map((a) => <Badge key={a} variant="emerald">{a}</Badge>)}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Calendar + Financial Summary + Quick Actions */}
           <div className="space-y-6">
-            <Card>
+            <Card className="card-hover">
               <CardHeader>
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                   <Calendar className="h-5 w-5 text-emerald-600" /> 30-Day Calendar
@@ -121,7 +158,7 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="card-hover bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-200/50">
               <CardHeader>
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-emerald-600" /> Financial Summary
@@ -178,7 +215,7 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
 
           {/* Reservations + Tasks */}
           <div className="lg:col-span-2 space-y-6">
-            <Card>
+            <Card className="card-hover">
               <CardHeader>
                 <h3 className="font-semibold text-gray-900">Reservations</h3>
               </CardHeader>
@@ -212,7 +249,7 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="card-hover">
               <CardHeader>
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                   <ClipboardList className="h-5 w-5 text-emerald-600" /> Task History

@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import { Home, Mail, Lock, User, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -73,18 +74,28 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-800 via-green-700 to-emerald-600 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen relative flex items-center justify-center px-4">
+      {/* Background Image */}
+      <Image
+        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop&q=80"
+        alt="Luxury villa pool area"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/85 via-green-800/75 to-emerald-700/80 backdrop-blur-[2px]" />
+
+      <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="text-center mb-8 animate-fade-in">
           <div className="inline-flex items-center gap-3 text-white mb-2">
             <Home className="h-10 w-10" />
             <h1 className="text-3xl font-bold tracking-tight">VillaOS</h1>
           </div>
-          <p className="text-emerald-200">Villa Management for Phuket</p>
+          <p className="text-emerald-200/80">Villa Management for Phuket</p>
         </div>
 
-        <Card className="shadow-xl animate-slide-up">
+        <Card className="shadow-2xl animate-slide-up backdrop-blur-sm bg-white/95">
           <CardContent className="py-8 px-6">
             {/* Mode Toggle */}
             <div className="flex bg-gray-100 rounded-lg p-1 mb-6">
@@ -214,7 +225,7 @@ function LoginForm() {
           </CardContent>
         </Card>
 
-        <p className="text-center text-emerald-200 text-xs mt-6">
+        <p className="text-center text-emerald-200/60 text-xs mt-6">
           VillaOS — Property Management for Phuket, Thailand
         </p>
       </div>

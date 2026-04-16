@@ -28,7 +28,7 @@ const plans = [
   {
     name: 'Professional',
     tagline: 'Most Popular',
-    price: '฿1,900',
+    price: '\u0E3F1,900',
     priceSub: '/month ($55)',
     features: [
       'Unlimited villas',
@@ -45,7 +45,7 @@ const plans = [
   {
     name: 'Enterprise',
     tagline: 'For Management Companies',
-    price: '฿4,900',
+    price: '\u0E3F4,900',
     priceSub: '/month ($142)',
     features: [
       'Everything in Professional',
@@ -129,8 +129,9 @@ export default function PricingPage() {
       <NavHeader />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-700 text-white py-20 bg-grid-pattern relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.2),transparent_70%)]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
             Simple, transparent pricing
           </h1>
@@ -141,20 +142,20 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900 bg-dot-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`rounded-2xl border p-8 flex flex-col ${
+                className={`rounded-2xl border p-8 flex flex-col card-hover ${
                   plan.popular
-                    ? 'border-emerald-500 bg-white dark:bg-gray-800 shadow-xl ring-2 ring-emerald-500/20 relative'
+                    ? 'border-emerald-500 bg-white dark:bg-gray-800 glow-emerald ring-2 ring-emerald-500/20 relative scale-[1.02]'
                     : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
                 }`}
               >
                 {plan.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-xs font-bold px-4 py-1 rounded-full">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-600 to-green-500 text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">
                     Most Popular
                   </span>
                 )}
@@ -176,9 +177,9 @@ export default function PricingPage() {
                 </ul>
                 <Link
                   href={plan.name === 'Enterprise' ? '/contact' : '/login'}
-                  className={`inline-flex items-center justify-center py-3 rounded-xl font-semibold text-sm transition-colors ${
+                  className={`inline-flex items-center justify-center py-3 rounded-xl font-semibold text-sm transition-all ${
                     plan.popular
-                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl'
                       : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-white'
                   }`}
                 >
@@ -222,14 +223,14 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900 bg-grid-pattern">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white text-center mb-12">
             Frequently asked questions
           </h2>
           <div className="space-y-6">
             {faqs.map((faq) => (
-              <div key={faq.q} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+              <div key={faq.q} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 card-hover">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{faq.q}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{faq.a}</p>
               </div>
@@ -239,13 +240,13 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-emerald-700 text-white text-center">
+      <section className="py-16 bg-gradient-to-r from-emerald-700 via-emerald-600 to-green-600 text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Start managing smarter today</h2>
           <p className="text-emerald-100/70 mb-8">Free plan available. No credit card required.</p>
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 bg-white text-emerald-800 hover:bg-emerald-50 px-8 py-3 rounded-xl font-bold transition-colors"
+            className="inline-flex items-center gap-2 bg-white text-emerald-800 hover:bg-emerald-50 px-8 py-3 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
           >
             Get Started Free <ArrowRight className="h-5 w-5" />
           </Link>

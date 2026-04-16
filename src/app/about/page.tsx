@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Heart, Eye, Globe2, BarChart3, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { NavHeader } from '@/components/nav-header';
@@ -14,16 +15,22 @@ const founders = [
     name: 'Kittisak Phanwattana',
     role: 'CEO & Co-Founder',
     bio: 'Managed 30+ villas across Rawai and Nai Harn for eight years before building VillaOS. Knows every pain point firsthand.',
+    initials: 'KP',
+    gradient: 'from-emerald-500 to-teal-600',
   },
   {
     name: 'Emma Richardson',
     role: 'CTO & Co-Founder',
     bio: 'Former software engineer at a London prop-tech startup. Moved to Phuket in 2020 and saw the gap between available tools and real needs.',
+    initials: 'ER',
+    gradient: 'from-blue-500 to-indigo-600',
   },
   {
     name: 'Patchara Suwannarat',
     role: 'COO & Co-Founder',
     bio: 'Operations specialist who streamlined housekeeping for a 50-villa portfolio. Designed the task board workflow that powers VillaOS.',
+    initials: 'PS',
+    gradient: 'from-amber-500 to-orange-600',
   },
 ];
 
@@ -57,13 +64,20 @@ export default function AboutPage() {
     <div className="flex flex-col min-h-screen">
       <NavHeader />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-700 text-white py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+      {/* Hero with Image */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1506953823645-5e23ad830f43?w=1920&h=600&fit=crop&q=80"
+          alt="Tropical island aerial view"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/75 to-emerald-800/60" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
             Built by villa managers, for villa managers
           </h1>
-          <p className="mt-6 text-lg text-emerald-100/70 max-w-2xl mx-auto">
+          <p className="mt-6 text-lg text-white/70 max-w-2xl mx-auto">
             We know your world because we lived it. VillaOS was born from real frustration with real spreadsheets on a real island.
           </p>
         </div>
@@ -91,14 +105,20 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900 bg-dot-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-16">The team</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {founders.map((f) => (
-              <div key={f.name} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8 text-center">
-                <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/40 rounded-full mx-auto mb-5 flex items-center justify-center">
-                  <Users className="h-8 w-8 text-emerald-600" />
+              <div key={f.name} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8 text-center card-hover">
+                <div className="relative mx-auto mb-5 w-24 h-24">
+                  <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${f.gradient} p-[3px]`}>
+                    <div className="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center">
+                      <span className={`text-2xl font-bold bg-gradient-to-br ${f.gradient} bg-clip-text text-transparent`}>
+                        {f.initials}
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">{f.name}</h3>
                 <p className="text-sm text-emerald-600 font-medium mb-3">{f.role}</p>
@@ -120,12 +140,12 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900 bg-grid-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-16">Our values</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {values.map((v) => (
-              <div key={v.title} className="flex gap-5">
+              <div key={v.title} className="flex gap-5 bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 card-hover">
                 <div className="bg-emerald-100 dark:bg-emerald-900/40 p-3 rounded-xl h-fit">
                   <v.icon className="h-6 w-6 text-emerald-600" />
                 </div>
@@ -152,13 +172,13 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-emerald-700 text-white text-center">
+      <section className="py-16 bg-gradient-to-r from-emerald-700 via-emerald-600 to-green-600 text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Join our growing community</h2>
           <p className="text-emerald-100/70 mb-8">50+ villa managers already made the switch.</p>
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 bg-white text-emerald-800 hover:bg-emerald-50 px-8 py-3 rounded-xl font-bold transition-colors"
+            className="inline-flex items-center gap-2 bg-white text-emerald-800 hover:bg-emerald-50 px-8 py-3 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl"
           >
             Get Started Free <ArrowRight className="h-5 w-5" />
           </Link>
