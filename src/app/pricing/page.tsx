@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Check, X, ArrowRight } from 'lucide-react';
 import { NavHeader } from '@/components/nav-header';
 import { Footer } from '@/components/footer';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 export const metadata: Metadata = {
   title: 'Pricing - VillaOS',
@@ -145,12 +146,12 @@ export default function PricingPage() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900 bg-dot-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {plans.map((plan) => (
+            {plans.map((plan, planIndex) => (
+              <ScrollAnimate key={plan.name} direction="up" delay={planIndex * 150}>
               <div
-                key={plan.name}
                 className={`rounded-2xl border p-8 flex flex-col card-hover ${
                   plan.popular
-                    ? 'border-emerald-500 bg-white dark:bg-gray-800 glow-emerald ring-2 ring-emerald-500/20 relative scale-[1.02]'
+                    ? 'border-emerald-500 bg-white dark:bg-gray-800 animate-glow-pulse ring-2 ring-emerald-500/20 relative scale-[1.02]'
                     : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
                 }`}
               >
@@ -168,8 +169,8 @@ export default function PricingPage() {
                   <span className="text-gray-500 dark:text-gray-400 text-sm ml-1">{plan.priceSub}</span>
                 </div>
                 <ul className="space-y-3 mb-8 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+                  {plan.features.map((f, fi) => (
+                    <li key={f} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300 animate-stagger-in" style={{ animationDelay: `${(planIndex * 150) + (fi * 60)}ms` }}>
                       <Check className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
                       {f}
                     </li>
@@ -186,6 +187,7 @@ export default function PricingPage() {
                   {plan.cta}
                 </Link>
               </div>
+              </ScrollAnimate>
             ))}
           </div>
         </div>

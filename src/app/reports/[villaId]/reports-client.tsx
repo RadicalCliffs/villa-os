@@ -8,10 +8,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { NavHeader } from '@/components/nav-header';
 import { OccupancyHeatmap } from '@/components/occupancy-heatmap';
+import { AnimatedCounter } from '@/components/ui/animated-counter';
 import { useToast } from '@/components/ui/toast';
 import { formatCurrency, formatDate } from '@/lib/utils';
 
-function MetricCard({ icon: Icon, label, value, color, gradient }: { icon: React.ElementType; label: string; value: string; color: string; gradient?: string }) {
+function MetricCard({ icon: Icon, label, value, numericValue, prefix, suffix, color, gradient }: { icon: React.ElementType; label: string; value: string; numericValue?: number; prefix?: string; suffix?: string; color: string; gradient?: string }) {
   return (
     <Card className={`glass-card card-hover ${gradient || ''}`}>
       <CardContent className="flex items-center gap-4 py-5">
@@ -20,7 +21,13 @@ function MetricCard({ icon: Icon, label, value, color, gradient }: { icon: React
         </div>
         <div>
           <p className="text-sm text-gray-500">{label}</p>
-          <p className="text-xl font-bold text-gray-900">{value}</p>
+          <p className="text-xl font-bold text-gray-900">
+            {numericValue !== undefined ? (
+              <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} />
+            ) : (
+              value
+            )}
+          </p>
         </div>
       </CardContent>
     </Card>
@@ -38,8 +45,8 @@ function BarChart({ data, maxValue }: { data: { label: string; value: number; co
           </div>
           <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
             <div
-              className={`h-4 rounded-full ${item.color} transition-all duration-700`}
-              style={{ width: `${Math.max(5, (item.value / maxValue) * 100)}%` }}
+              className={`h-4 rounded-full ${item.color} animate-bar-grow`}
+              style={{ width: `${Math.max(5, (item.value / maxValue) * 100)}%`, animationDelay: `${i * 150}ms`, animationFillMode: 'backwards' }}
             />
           </div>
         </div>
@@ -158,7 +165,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
           <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handleCopyLink}>
             <Share2 className="h-4 w-4" /> Copy Link
           </Button>
-          <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handlePrint}>
+          <Button variant="outline" size="sm" className="flex items-center gap-1 hover:scale-105 active:scale-95 transition-transform" onClick={handlePrint}>
             <Printer className="h-4 w-4" /> PDF
           </Button>
           <a href={`/api/ical/${villaId}`}>
@@ -171,10 +178,10 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
         {/* Key Metrics */}
         {latestReport && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <MetricCard icon={TrendingUp} label="Total Revenue" value={formatCurrency(latestReport.total_revenue as number)} color="bg-green-600" />
-            <MetricCard icon={TrendingDown} label="Total Expenses" value={formatCurrency(latestReport.total_expenses as number)} color="bg-red-500" />
-            <MetricCard icon={DollarSign} label="Net Income" value={formatCurrency(latestReport.net_income as number)} color="bg-emerald-600" />
-            <MetricCard icon={Percent} label="Occupancy Rate" value={`${latestReport.occupancy_rate}%`} color="bg-blue-600" />
+            <MetricCard icon={TrendingUp} label="Total Revenue" value={formatCurrency(latestReport.total_revenue as number)} numericValue={latestReport.total_revenue as number} prefix="฿" color="bg-green-600" />
+            <MetricCard icon={TrendingDown} label="Total Expenses" value={formatCurrency(latestReport.total_expenses as number)} numericValue={latestReport.total_expenses as number} prefix="฿" color="bg-red-500" />
+            <MetricCard icon={DollarSign} label="Net Income" value={formatCurrency(latestReport.net_income as number)} numericValue={latestReport.net_income as number} prefix="฿" color="bg-emerald-600" />
+            <MetricCard icon={Percent} label="Occupancy Rate" value={`${latestReport.occupancy_rate}%`} numericValue={latestReport.occupancy_rate as number} suffix="%" color="bg-blue-600" />
           </div>
         )}
 

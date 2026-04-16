@@ -25,16 +25,22 @@ const villaImages = [
   '/images/villas/bb6809e5-d2b6-45c6-837a-4bed2f6879c3.png',
 ];
 
-function StatCard({ icon: Icon, label, value, color, index }: { icon: React.ElementType; label: string; value: string | number; color: string; index: number }) {
+function StatCard({ icon: Icon, label, value, numericValue, prefix, suffix, color, index }: { icon: React.ElementType; label: string; value: string | number; numericValue?: number; prefix?: string; suffix?: string; color: string; index: number }) {
   return (
-    <Card className="glass-card card-hover group" style={{ animationDelay: `${index * 80}ms` }}>
+    <Card className="glass-card card-hover group animate-stagger-in" style={{ animationDelay: `${index * 80}ms` }}>
       <CardContent className="flex items-center gap-4 py-5">
         <div className={`p-3 rounded-xl ${color} shadow-lg`}>
           <Icon className="h-6 w-6 text-white" />
         </div>
         <div>
           <p className="text-sm text-gray-500">{label}</p>
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p className="text-2xl font-bold text-gray-900">
+            {numericValue !== undefined ? (
+              <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} />
+            ) : (
+              value
+            )}
+          </p>
         </div>
       </CardContent>
     </Card>
@@ -94,11 +100,11 @@ export function DashboardClient({
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 -mt-8 relative z-10">
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          <StatCard icon={BedDouble} label="Total Villas" value={villas.length} color="bg-emerald-600" index={0} />
-          <StatCard icon={CalendarCheck} label="Today Check-ins" value={todayCheckIns.length} color="bg-blue-600" index={1} />
-          <StatCard icon={CalendarX} label="Today Check-outs" value={todayCheckOuts.length} color="bg-amber-600" index={2} />
-          <StatCard icon={ClipboardList} label="Pending Tasks" value={pendingTasksCount} color="bg-purple-600" index={3} />
-          <StatCard icon={DollarSign} label="Monthly Revenue" value={formatCurrency(monthlyRevenue)} color="bg-green-600" index={4} />
+          <StatCard icon={BedDouble} label="Total Villas" value={villas.length} numericValue={villas.length} color="bg-emerald-600" index={0} />
+          <StatCard icon={CalendarCheck} label="Today Check-ins" value={todayCheckIns.length} numericValue={todayCheckIns.length} color="bg-blue-600" index={1} />
+          <StatCard icon={CalendarX} label="Today Check-outs" value={todayCheckOuts.length} numericValue={todayCheckOuts.length} color="bg-amber-600" index={2} />
+          <StatCard icon={ClipboardList} label="Pending Tasks" value={pendingTasksCount} numericValue={pendingTasksCount} color="bg-purple-600" index={3} />
+          <StatCard icon={DollarSign} label="Monthly Revenue" value={formatCurrency(monthlyRevenue)} numericValue={monthlyRevenue} prefix="฿" color="bg-green-600" index={4} />
         </div>
 
         {/* Villa Overview Grid */}
@@ -240,7 +246,7 @@ export function DashboardClient({
                         ? (task.staff as { name: string } | null)
                         : seedGetStaffById(task.assigned_to as string);
                       return (
-                        <div key={task.id as string} className="flex items-start justify-between py-2 border-b border-gray-50 last:border-0">
+                        <div key={task.id as string} className="flex items-start justify-between py-2 border-b border-gray-50 last:border-0 animate-pulse-subtle">
                           <div>
                             <p className="font-medium text-gray-900 capitalize">{task.type as string} — {villaInfo?.name}</p>
                             <p className="text-sm text-gray-500">{task.notes as string}</p>

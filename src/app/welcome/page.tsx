@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { NavHeader } from '@/components/nav-header';
 import { Footer } from '@/components/footer';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import { AnimatedCounter } from '@/components/ui/animated-counter';
 
 export const metadata: Metadata = {
   title: 'VillaOS - The Operating System for Phuket Villa Managers',
@@ -168,27 +170,33 @@ export default function WelcomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36 relative z-10 w-full">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-white">
-              The Operating System for Phuket Villa Managers
-            </h1>
-            <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl">
-              Manage 50+ villas from one dashboard. Automate tasks, track revenue, delight owners.
-              Stop drowning in spreadsheets and WhatsApp groups.
-            </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/login"
-                className="inline-flex items-center justify-center gap-2 bg-white/95 backdrop-blur-sm text-emerald-800 hover:bg-white px-8 py-3.5 rounded-xl text-base font-bold transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
-              >
-                Start Free Trial <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link
-                href="/features"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-3.5 rounded-xl text-base font-bold transition-all backdrop-blur-md"
-              >
-                Watch Demo
-              </Link>
-            </div>
+            <ScrollAnimate direction="up" delay={0} duration={700}>
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-white">
+                The Operating System for Phuket Villa Managers
+              </h1>
+            </ScrollAnimate>
+            <ScrollAnimate direction="up" delay={200} duration={700}>
+              <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl">
+                Manage 50+ villas from one dashboard. Automate tasks, track revenue, delight owners.
+                Stop drowning in spreadsheets and WhatsApp groups.
+              </p>
+            </ScrollAnimate>
+            <ScrollAnimate direction="up" delay={400} duration={700}>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 bg-white/95 backdrop-blur-sm text-emerald-800 hover:bg-white px-8 py-3.5 rounded-xl text-base font-bold transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                >
+                  Start Free Trial <ArrowRight className="h-5 w-5" />
+                </Link>
+                <Link
+                  href="/features"
+                  className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-3.5 rounded-xl text-base font-bold transition-all backdrop-blur-md"
+                >
+                  Watch Demo
+                </Link>
+              </div>
+            </ScrollAnimate>
           </div>
 
           {/* Dashboard mockup */}
@@ -224,17 +232,16 @@ export default function WelcomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {painPoints.map((p) => (
-              <div
-                key={p.title}
-                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 card-hover group"
-              >
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center mb-4 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/50">
-                  <p.icon className="h-6 w-6 text-emerald-600" />
+            {painPoints.map((p, i) => (
+              <ScrollAnimate key={p.title} direction="up" delay={i * 100}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 card-hover group h-full">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center mb-4 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/50">
+                    <p.icon className="h-6 w-6 text-emerald-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{p.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{p.desc}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{p.title}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{p.desc}</p>
-              </div>
+              </ScrollAnimate>
             ))}
           </div>
         </div>
@@ -253,8 +260,8 @@ export default function WelcomePage() {
           </div>
           <div className="space-y-24">
             {features.map((f, i) => (
+              <ScrollAnimate key={f.title} direction={i % 2 === 0 ? 'left' : 'right'} duration={700}>
               <div
-                key={f.title}
                 className={`flex flex-col ${i % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center`}
               >
                 <div className="flex-1">
@@ -280,6 +287,7 @@ export default function WelcomePage() {
                   </div>
                 </div>
               </div>
+              </ScrollAnimate>
             ))}
           </div>
         </div>
@@ -290,20 +298,22 @@ export default function WelcomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mb-20">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-extrabold text-emerald-600">{s.value}</div>
-                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{s.label}</div>
-              </div>
+            {stats.map((s, i) => (
+              <ScrollAnimate key={s.label} direction="up" delay={i * 150}>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-extrabold text-emerald-600">{s.value}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{s.label}</div>
+                </div>
+              </ScrollAnimate>
             ))}
           </div>
 
           {/* Testimonials */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t) => (
+            {testimonials.map((t, i) => (
+              <ScrollAnimate key={t.name} direction="up" delay={i * 150}>
               <div
-                key={t.name}
-                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8 card-hover"
+                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8 card-hover h-full"
               >
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.stars }).map((_, j) => (
@@ -323,6 +333,7 @@ export default function WelcomePage() {
                   </div>
                 </div>
               </div>
+              </ScrollAnimate>
             ))}
           </div>
         </div>
@@ -397,7 +408,7 @@ export default function WelcomePage() {
             <input
               type="email"
               placeholder="you@example.com"
-              className="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-400 backdrop-blur-sm"
+              className="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-400 backdrop-blur-sm focus-glow"
             />
             <Link
               href="/login"

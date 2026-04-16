@@ -9,6 +9,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { NavHeader } from '@/components/nav-header';
 import { ExpenseForm } from '@/components/expense-form';
+import { AnimatedCounter } from '@/components/ui/animated-counter';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { useToast } from '@/components/ui/toast';
 import { formatCurrency, formatDate, getDaysBetween } from '@/lib/utils';
 import { getStaffById as seedGetStaffById } from '@/lib/seed-data';
@@ -65,7 +67,7 @@ function CalendarGrid({ reservations }: { reservations: Array<Record<string, unk
         return (
           <div
             key={i}
-            className={`text-xs text-center py-1.5 rounded ${
+            className={`text-xs text-center py-1.5 rounded cursor-default hover:scale-110 hover:shadow-sm transition-all duration-150 ${
               status === 'occupied' ? 'bg-red-100 text-red-800' :
               status === 'checkout' ? 'bg-yellow-100 text-yellow-800' :
               'bg-green-50 text-green-700'
@@ -133,7 +135,7 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <div className="grid grid-cols-4 gap-2 rounded-xl overflow-hidden shadow-lg">
           {villaGalleryImages.map((img, i) => (
-            <div key={i} className="relative h-28 sm:h-36">
+            <div key={i} className="relative h-28 sm:h-36 gallery-zoom">
               <Image
                 src={img}
                 alt={`Villa interior ${i + 1}`}
@@ -180,19 +182,19 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
                   <>
                     <div className="flex justify-between">
                       <span className="text-sm text-gray-500">Revenue ({latestReport.month as string})</span>
-                      <span className="font-semibold text-green-700">{formatCurrency(latestReport.total_revenue as number)}</span>
+                      <span className="font-semibold text-green-700"><AnimatedCounter value={latestReport.total_revenue as number} prefix="฿" /></span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-sm text-gray-500">Expenses</span>
-                      <span className="font-semibold text-red-600">{formatCurrency(latestReport.total_expenses as number)}</span>
+                      <span className="font-semibold text-red-600"><AnimatedCounter value={latestReport.total_expenses as number} prefix="฿" /></span>
                     </div>
                     <div className="border-t pt-2 flex justify-between">
                       <span className="text-sm font-medium text-gray-700">Net Income</span>
-                      <span className="font-bold text-emerald-700">{formatCurrency(latestReport.net_income as number)}</span>
+                      <span className="font-bold text-emerald-700"><AnimatedCounter value={latestReport.net_income as number} prefix="฿" /></span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-sm text-gray-500">Occupancy</span>
-                      <span className="font-semibold">{latestReport.occupancy_rate as number}%</span>
+                      <span className="font-semibold"><AnimatedCounter value={latestReport.occupancy_rate as number} suffix="%" /></span>
                     </div>
                   </>
                 ) : (
@@ -235,8 +237,8 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
                   <div className="space-y-4">
                     {[...reservations]
                       .sort((a, b) => (a.check_in as string).localeCompare(b.check_in as string))
-                      .map((r) => (
-                        <div key={r.id as string} className="flex items-start justify-between py-3 border-b border-gray-50 last:border-0">
+                      .map((r, i) => (
+                        <div key={r.id as string} className="flex items-start justify-between py-3 border-b border-gray-50 last:border-0 animate-stagger-in" style={{ animationDelay: `${i * 60}ms` }}>
                           <div>
                             <p className="font-medium text-gray-900">{r.guest_name as string}</p>
                             <p className="text-sm text-gray-500">

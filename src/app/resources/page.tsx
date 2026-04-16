@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { NavHeader } from '@/components/nav-header';
 import { Footer } from '@/components/footer';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 export const metadata: Metadata = {
   title: 'Resources - VillaOS',
@@ -68,11 +69,11 @@ export default function ResourcesPage() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900 flex-1">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {articles.map((article) => (
+            {articles.map((article, i) => (
+              <ScrollAnimate key={article.title} direction="up" delay={i * 100}>
               <Link
-                key={article.title}
                 href={article.slug}
-                className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow"
+                className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow block"
               >
                 <div className="relative h-48">
                   <Image
@@ -99,12 +100,13 @@ export default function ResourcesPage() {
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-gray-400">{article.date}</span>
-                    <span className="text-emerald-600 text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Read <ArrowRight className="h-3 w-3" />
+                    <span className="text-emerald-600 text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2.5 transition-all duration-300">
+                      Read <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform duration-300" />
                     </span>
                   </div>
                 </div>
               </Link>
+              </ScrollAnimate>
             ))}
           </div>
         </div>
@@ -119,7 +121,7 @@ export default function ResourcesPage() {
             <input
               type="email"
               placeholder="you@example.com"
-              className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus-glow"
             />
             <button type="submit" className="bg-white text-emerald-800 hover:bg-emerald-50 px-6 py-2.5 rounded-xl text-sm font-bold transition-colors whitespace-nowrap">
               Subscribe

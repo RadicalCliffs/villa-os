@@ -72,19 +72,25 @@ export function NavHeader() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            {navLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`transition-colors ${
-                  pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href))
-                    ? 'text-white'
-                    : 'text-white/70 hover:text-white'
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
+            {navLinks.map((l) => {
+              const isActive = pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href));
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={`relative py-1 transition-colors ${
+                    isActive
+                      ? 'text-white'
+                      : 'text-white/70 hover:text-white'
+                  }`}
+                >
+                  {l.label}
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-white rounded-full animate-fade-in" />
+                  )}
+                </Link>
+              );
+            })}
 
             <button onClick={toggleTheme} className="text-white/70 hover:text-white" title="Toggle theme">
               {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -121,7 +127,7 @@ export function NavHeader() {
 
         {/* Mobile nav */}
         {mobileOpen && (
-          <nav className="md:hidden pb-4 space-y-2">
+          <nav className="md:hidden pb-4 space-y-2 animate-slide-in-mobile">
             {navLinks.map((l) => (
               <Link
                 key={l.href}

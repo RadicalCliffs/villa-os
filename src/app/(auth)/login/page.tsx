@@ -95,7 +95,7 @@ function LoginForm() {
           <p className="text-emerald-200/80">Villa Management for Phuket</p>
         </div>
 
-        <Card className="shadow-2xl animate-slide-up backdrop-blur-sm bg-white/95">
+        <Card className="shadow-2xl animate-slide-up backdrop-blur-sm bg-white/95 animate-float" style={{ animationDuration: '6s' }}>
           <CardContent className="py-8 px-6">
             {/* Mode Toggle */}
             <div className="flex bg-gray-100 rounded-lg p-1 mb-6">
@@ -159,7 +159,7 @@ function LoginForm() {
                       placeholder="Your full name"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent focus-glow"
                     />
                   </div>
                 </div>
@@ -175,7 +175,7 @@ function LoginForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                    className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent focus-glow"
                   />
                 </div>
               </div>
@@ -191,7 +191,7 @@ function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                    className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent focus-glow"
                   />
                 </div>
               </div>
@@ -206,7 +206,7 @@ function LoginForm() {
                       placeholder="+66 xx xxx xxxx"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent focus-glow"
                     />
                   </div>
                 </div>

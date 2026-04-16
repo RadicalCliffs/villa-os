@@ -14,7 +14,7 @@ export function AnimatedCounter({
   value,
   prefix = '',
   suffix = '',
-  duration = 800,
+  duration = 2000,
   formatter,
 }: AnimatedCounterProps) {
   const [display, setDisplay] = useState(0);

@@ -255,11 +255,11 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
                 onDragOver={(e) => handleDragOver(e, col.status)}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, col.status)}
-                className={`rounded-lg transition-colors ${isOver ? 'bg-emerald-50 ring-2 ring-emerald-300' : ''}`}
+                className={`rounded-lg p-3 transition-all duration-200 ${isOver ? 'bg-emerald-50 ring-2 ring-emerald-300 animate-drop-zone-pulse' : ''}`}
               >
                 <div className={`flex items-center gap-2 mb-3 pb-2 border-b-2 ${col.color}`}>
                   <h3 className="font-semibold text-gray-900">{col.label}</h3>
-                  <span className="text-sm text-gray-500">({colTasks.length})</span>
+                  <span className="inline-flex items-center justify-center min-w-[1.5rem] h-6 px-1.5 rounded-full bg-gray-100 text-sm font-medium text-gray-600 transition-all">{colTasks.length}</span>
                 </div>
                 <div className="space-y-3 min-h-[200px]">
                   {colTasks.map((task: Record<string, unknown>) => {
@@ -276,8 +276,8 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
                         draggable
                         onDragStart={(e) => handleDragStart(e, task.id as string)}
                         onDragEnd={() => setDraggingId(null)}
-                        className={`cursor-grab active:cursor-grabbing card-hover border-l-4 ${borderColor} ${
-                          isDragging ? 'opacity-50 scale-95 rotate-1' : ''
+                        className={`cursor-grab active:cursor-grabbing card-hover border-l-4 ${borderColor} transition-all duration-200 ${
+                          isDragging ? 'opacity-50 scale-[1.05] rotate-2 shadow-2xl' : ''
                         }`}
                       >
                         <CardContent className="py-3">

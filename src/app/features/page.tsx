@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { NavHeader } from '@/components/nav-header';
 import { Footer } from '@/components/footer';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 export const metadata: Metadata = {
   title: 'Features - VillaOS',
@@ -145,11 +146,12 @@ export default function FeaturesPage() {
       <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900 bg-dot-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           {categories.map((cat, i) => (
-            <div key={cat.title} className={`flex flex-col ${i % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-start`}>
+            <ScrollAnimate key={cat.title} direction={i % 2 === 0 ? 'left' : 'right'} duration={700}>
+            <div className={`flex flex-col ${i % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-start`}>
               {/* Text */}
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-emerald-100 dark:bg-emerald-900/40 p-3 rounded-xl">
+                  <div className="bg-emerald-100 dark:bg-emerald-900/40 p-3 rounded-xl animate-bounce-subtle" style={{ animationDelay: `${i * 100}ms` }}>
                     <cat.icon className="h-7 w-7 text-emerald-600" />
                   </div>
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{cat.title}</h2>
@@ -185,6 +187,7 @@ export default function FeaturesPage() {
                 </div>
               </div>
             </div>
+            </ScrollAnimate>
           ))}
         </div>
       </section>
