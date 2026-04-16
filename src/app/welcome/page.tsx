@@ -61,10 +61,10 @@ const painPoints = [
 ];
 
 const featureImages = [
-  '/images/villas/compound-aerial-night.png',
-  '/images/lifestyle/property-manager-pool.png',
-  '/images/interiors/workspace-ocean-view.png',
-  '/images/villas/villa-pool-ocean-sunset.png',
+  'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=700&h=500&fit=crop&q=80',
 ];
 
 const features = [
@@ -155,12 +155,12 @@ export default function WelcomePage() {
       <NavHeader />
 
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      <section className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] flex items-center overflow-hidden">
         <Image
-          src="/images/villas/infinity-pool-sunset.png"
+          src="https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?w=1920&h=900&fit=crop&q=85"
           alt="Modern luxury villa with pool"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/70 to-emerald-800/40" />
@@ -201,10 +201,10 @@ export default function WelcomePage() {
             </div>
             <div className="relative h-64 md:h-96">
               <Image
-                src="/images/villas/compound-aerial-night.png"
+                src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=600&fit=crop&q=85"
                 alt="Dashboard analytics view"
                 fill
-                className="object-cover"
+                className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent" />
             </div>
@@ -380,10 +380,10 @@ export default function WelcomePage() {
       {/* Final CTA */}
       <section className="relative py-20 md:py-28 text-white overflow-hidden">
         <Image
-          src="/images/villas/beach-sala-turquoise.png"
+          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&h=600&fit=crop&q=85"
           alt="Tropical sunset"
           fill
-          className="object-cover"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-emerald-900/80" />
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

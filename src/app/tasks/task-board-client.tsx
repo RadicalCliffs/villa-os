@@ -149,10 +149,10 @@ export function TaskBoardClient({ initialTasks, villas, staff, hasDbData }: Task
       {/* Header Banner */}
       <div className="relative h-32 md:h-40 overflow-hidden">
         <Image
-          src="/images/lifestyle/property-manager-pool.png"
+          src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920&h=400&fit=crop&q=85"
           alt="Team working"
           fill
-          className="object-cover"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-indigo-800/70 to-blue-700/60" />
         <div className="absolute inset-0 flex items-center">

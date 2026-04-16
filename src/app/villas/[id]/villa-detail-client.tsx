@@ -13,12 +13,19 @@ import { useToast } from '@/components/ui/toast';
 import { formatCurrency, formatDate, getDaysBetween } from '@/lib/utils';
 import { getStaffById as seedGetStaffById } from '@/lib/seed-data';
 
+const villaExteriors = [
+  'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=500&fit=crop&q=80',
+];
+
 const villaGalleryImages = [
-  '/images/villas/villa-pool-palms-sunset.png',
-  '/images/interiors/living-ocean-view.png',
-  '/images/interiors/workspace-ocean-view.png',
-  '/images/interiors/dining-ocean-palms.png',
-  '/images/interiors/living-room-pool-view.png',
+  'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c0?w=600&h=400&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop&q=80',
 ];
 
 const sourceColors: Record<string, 'danger' | 'info' | 'success' | 'warning' | 'default'> = {
@@ -88,17 +95,21 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
   const latestReport = reports[0];
   const amenities = (villa.amenities as string[]) || [];
 
+  // Determine villa index from ID for unique image selection
+  const villaIndex = parseInt(villaId.slice(-1), 10) - 1;
+  const heroImage = villaExteriors[villaIndex % villaExteriors.length];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <NavHeader />
 
       {/* Villa Hero Header with Image */}
-      <div className="relative h-72 md:h-96 overflow-hidden">
+      <div className="relative h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px] overflow-hidden">
         <Image
-          src={villaGalleryImages[0]}
+          src={heroImage}
           alt={villa.name as string}
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
@@ -121,8 +132,8 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
       {/* Image Gallery */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <div className="grid grid-cols-4 gap-2 rounded-xl overflow-hidden shadow-lg">
-          {villaGalleryImages.slice(1, 5).map((img, i) => (
-            <div key={i} className="relative h-24 md:h-32">
+          {villaGalleryImages.map((img, i) => (
+            <div key={i} className="relative h-28 sm:h-36">
               <Image
                 src={img}
                 alt={`Villa interior ${i + 1}`}

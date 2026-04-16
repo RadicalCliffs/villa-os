@@ -18,12 +18,11 @@ import {
 } from '@/lib/seed-data';
 
 const villaImages = [
-  '/images/villas/infinity-pool-sunset.png',
-  '/images/villas/villa-pool-palms-sunset.png',
-  '/images/villas/villa-pool-ocean-sunset.png',
-  '/images/villas/pool-ocean-curtains.png',
-  '/images/villas/beach-sala-turquoise.png',
-  '/images/villas/compound-aerial-night.png',
+  'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=500&fit=crop&q=80',
 ];
 
 function StatCard({ icon: Icon, label, value, color, index }: { icon: React.ElementType; label: string; value: string | number; color: string; index: number }) {
@@ -77,10 +76,10 @@ export function DashboardClient({
       {/* Hero Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
         <Image
-          src="/images/villas/compound-aerial-night.png"
+          src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=600&fit=crop&q=85"
           alt="Aerial tropical island view"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/80 via-emerald-800/60 to-transparent" />
@@ -128,7 +127,7 @@ export function DashboardClient({
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute top-3 right-3">
-                      <Badge variant={config.variant}>{config.label}</Badge>
+                      <Badge variant="overlay">{config.label}</Badge>
                     </div>
                     <div className="absolute bottom-3 left-3">
                       <h3 className="font-bold text-white text-lg drop-shadow-lg">{villa.name as string}</h3>

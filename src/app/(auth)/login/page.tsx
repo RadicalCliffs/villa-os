@@ -77,10 +77,10 @@ function LoginForm() {
     <div className="min-h-screen relative flex items-center justify-center px-4">
       {/* Background Image */}
       <Image
-        src="/images/villas/villa-pool-palms-sunset.png"
+        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop&q=85"
         alt="Luxury villa pool area"
         fill
-        className="object-cover"
+        className="object-cover object-center"
         priority
       />
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/85 via-green-800/75 to-emerald-700/80 backdrop-blur-[2px]" />

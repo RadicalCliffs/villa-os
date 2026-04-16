@@ -115,10 +115,10 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
       {/* Professional Header with Villa Image */}
       <div className="relative h-48 md:h-56 overflow-hidden print:hidden">
         <Image
-          src="/images/villas/villa-pool-ocean-sunset.png"
+          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&h=400&fit=crop&q=85"
           alt="Luxury villa"
           fill
-          className="object-cover"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/85 via-emerald-800/70 to-transparent" />
         <div className="absolute inset-0 flex items-center">

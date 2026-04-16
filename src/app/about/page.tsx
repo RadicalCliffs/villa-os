@@ -65,12 +65,12 @@ export default function AboutPage() {
       <NavHeader />
 
       {/* Hero with Image */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px] flex items-center overflow-hidden">
         <Image
-          src="/images/villas/villa-pool-ocean-sunset.png"
+          src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1920&h=900&fit=crop&q=85"
           alt="Tropical island aerial view"
           fill
-          className="object-cover"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/75 to-emerald-800/60" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -172,8 +172,15 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-gradient-to-r from-emerald-700 via-emerald-600 to-green-600 text-white text-center">
-        <div className="max-w-2xl mx-auto px-4">
+      <section className="relative py-16 text-white text-center overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&h=600&fit=crop&q=85"
+          alt="Villa palms"
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-emerald-800/80" />
+        <div className="max-w-2xl mx-auto px-4 relative z-10">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Join our growing community</h2>
           <p className="text-emerald-100/70 mb-8">50+ villa managers already made the switch.</p>
           <Link
