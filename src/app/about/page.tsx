@@ -67,7 +67,7 @@ export default function AboutPage() {
       {/* Hero with Image */}
       <section className="relative py-20 md:py-28 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1506953823645-5e23ad830f43?w=1920&h=600&fit=crop&q=80"
+          src="/images/villas/villa-pool-ocean-sunset.png"
           alt="Tropical island aerial view"
           fill
           className="object-cover"

@@ -61,10 +61,10 @@ const painPoints = [
 ];
 
 const featureImages = [
-  'photo-1460925895917-afdab827c52f',
-  'photo-1551434678-e076c223a692',
-  'photo-1556761175-4b46a572b786',
-  'photo-1600607687939-ce8a6c25118c',
+  '/images/villas/compound-aerial-night.png',
+  '/images/lifestyle/property-manager-pool.png',
+  '/images/interiors/workspace-ocean-view.png',
+  '/images/villas/villa-pool-ocean-sunset.png',
 ];
 
 const features = [
@@ -157,7 +157,7 @@ export default function WelcomePage() {
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&h=1080&fit=crop&q=80"
+          src="/images/villas/infinity-pool-sunset.png"
           alt="Modern luxury villa with pool"
           fill
           className="object-cover"
@@ -201,7 +201,7 @@ export default function WelcomePage() {
             </div>
             <div className="relative h-64 md:h-96">
               <Image
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop&q=80"
+                src="/images/villas/compound-aerial-night.png"
                 alt="Dashboard analytics view"
                 fill
                 className="object-cover"
@@ -271,7 +271,7 @@ export default function WelcomePage() {
                     </div>
                     <div className="relative h-64">
                       <Image
-                        src={`https://images.unsplash.com/${f.image}?w=700&h=400&fit=crop&q=80`}
+                        src={f.image}
                         alt={f.title}
                         fill
                         className="object-cover"
@@ -380,7 +380,7 @@ export default function WelcomePage() {
       {/* Final CTA */}
       <section className="relative py-20 md:py-28 text-white overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1920&h=600&fit=crop&q=80"
+          src="/images/villas/beach-sala-turquoise.png"
           alt="Tropical sunset"
           fill
           className="object-cover"

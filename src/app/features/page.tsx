@@ -27,12 +27,12 @@ export const metadata: Metadata = {
 };
 
 const featureImages = [
-  'photo-1600596542815-ffad4c1539a9',
-  'photo-1600607687939-ce8a6c25118c',
-  'photo-1551434678-e076c223a692',
-  'photo-1460925895917-afdab827c52f',
-  'photo-1556761175-4b46a572b786',
-  'photo-1600566753190-17f0baa2a6c0',
+  '/images/villas/compound-aerial-night.png',
+  '/images/lifestyle/terrace-ocean-breakfast.png',
+  '/images/lifestyle/staff-bedroom-flowers.png',
+  '/images/interiors/workspace-ocean-view.png',
+  '/images/lifestyle/property-manager-pool.png',
+  '/images/villas/infinity-pool-sunset.png',
 ];
 
 const categories = [
@@ -124,7 +124,7 @@ export default function FeaturesPage() {
       {/* Hero */}
       <section className="relative py-20 md:py-28 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&h=600&fit=crop&q=80"
+          src="/images/villas/villa-pool-palms-sunset.png"
           alt="Tropical villa with palm trees"
           fill
           className="object-cover"
@@ -176,7 +176,7 @@ export default function FeaturesPage() {
                   </div>
                   <div className="relative h-72 md:h-80">
                     <Image
-                      src={`https://images.unsplash.com/${cat.image}?w=700&h=500&fit=crop&q=80`}
+                      src={cat.image}
                       alt={cat.title}
                       fill
                       className="object-cover"
@@ -192,7 +192,7 @@ export default function FeaturesPage() {
       {/* CTA */}
       <section className="relative py-16 text-white text-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=1920&h=400&fit=crop&q=80"
+          src="/images/villas/beach-sala-turquoise.png"
           alt="Beach paradise"
           fill
           className="object-cover"

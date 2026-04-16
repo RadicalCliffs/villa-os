@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { NavHeader } from '@/components/nav-header';
 import { Footer } from '@/components/footer';
@@ -17,6 +18,7 @@ const articles = [
     date: 'March 12, 2026',
     slug: '/resources/scaling-villas',
     category: 'Operations',
+    image: '/images/villas/compound-aerial-night.png',
   },
   {
     title: 'The Complete Guide to Villa Owner Reports',
@@ -25,6 +27,7 @@ const articles = [
     date: 'February 28, 2026',
     slug: '/resources',
     category: 'Reporting',
+    image: '/images/interiors/workspace-ocean-view.png',
   },
   {
     title: 'Phuket Villa Market 2026: Trends & Opportunities',
@@ -33,6 +36,7 @@ const articles = [
     date: 'January 15, 2026',
     slug: '/resources',
     category: 'Market',
+    image: '/images/villas/beach-sala-turquoise.png',
   },
   {
     title: 'Airbnb vs Booking.com: Optimizing Your Listing Mix',
@@ -41,6 +45,7 @@ const articles = [
     date: 'December 20, 2025',
     slug: '/resources',
     category: 'Distribution',
+    image: '/images/lifestyle/terrace-ocean-breakfast.png',
   },
 ];
 
@@ -69,9 +74,13 @@ export default function ResourcesPage() {
                 href={article.slug}
                 className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow"
               >
-                {/* Image placeholder */}
-                <div className="bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900/30 dark:to-green-900/30 h-48 flex items-center justify-center">
-                  <BookOpen className="h-12 w-12 text-emerald-400/30" />
+                <div className="relative h-48">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">

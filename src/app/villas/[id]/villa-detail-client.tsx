@@ -14,11 +14,11 @@ import { formatCurrency, formatDate, getDaysBetween } from '@/lib/utils';
 import { getStaffById as seedGetStaffById } from '@/lib/seed-data';
 
 const villaGalleryImages = [
-  'photo-1613490493576-7fde63acd811',
-  'photo-1600607687939-ce8a6c25118c',
-  'photo-1560448204-e02f11c3d0e2',
-  'photo-1600566753190-17f0baa2a6c0',
-  'photo-1600585154526-990dced4db0d',
+  '/images/villas/villa-pool-palms-sunset.png',
+  '/images/interiors/living-ocean-view.png',
+  '/images/interiors/workspace-ocean-view.png',
+  '/images/interiors/dining-ocean-palms.png',
+  '/images/interiors/living-room-pool-view.png',
 ];
 
 const sourceColors: Record<string, 'danger' | 'info' | 'success' | 'warning' | 'default'> = {
@@ -95,7 +95,7 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
       {/* Villa Hero Header with Image */}
       <div className="relative h-72 md:h-96 overflow-hidden">
         <Image
-          src={`https://images.unsplash.com/${villaGalleryImages[0]}?w=1600&h=600&fit=crop&q=80`}
+          src={villaGalleryImages[0]}
           alt={villa.name as string}
           fill
           className="object-cover"
@@ -124,7 +124,7 @@ export function VillaDetailClient({ villa, villaId, reservations, tasks, expense
           {villaGalleryImages.slice(1, 5).map((img, i) => (
             <div key={i} className="relative h-24 md:h-32">
               <Image
-                src={`https://images.unsplash.com/${img}?w=400&h=200&fit=crop&q=80`}
+                src={img}
                 alt={`Villa interior ${i + 1}`}
                 fill
                 className="object-cover"

@@ -18,12 +18,12 @@ import {
 } from '@/lib/seed-data';
 
 const villaImages = [
-  'photo-1613490493576-7fde63acd811',
-  'photo-1600596542815-ffad4c1539a9',
-  'photo-1600585154340-be6161a56a0c',
-  'photo-1512917774080-9991f1c4c750',
-  'photo-1580587771525-78b9dba3b914',
-  'photo-1600607687939-ce8a6c25118c',
+  '/images/villas/infinity-pool-sunset.png',
+  '/images/villas/villa-pool-palms-sunset.png',
+  '/images/villas/villa-pool-ocean-sunset.png',
+  '/images/villas/pool-ocean-curtains.png',
+  '/images/villas/beach-sala-turquoise.png',
+  '/images/villas/compound-aerial-night.png',
 ];
 
 function StatCard({ icon: Icon, label, value, color, index }: { icon: React.ElementType; label: string; value: string | number; color: string; index: number }) {
@@ -77,7 +77,7 @@ export function DashboardClient({
       {/* Hero Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1506953823645-5e23ad830f43?w=1600&h=500&fit=crop&q=80"
+          src="/images/villas/compound-aerial-night.png"
           alt="Aerial tropical island view"
           fill
           className="object-cover"
@@ -121,7 +121,7 @@ export function DashboardClient({
                 >
                   <div className="relative h-40">
                     <Image
-                      src={`https://images.unsplash.com/${imageId}?w=600&h=300&fit=crop&q=80`}
+                      src={imageId}
                       alt={villa.name as string}
                       fill
                       className="object-cover"

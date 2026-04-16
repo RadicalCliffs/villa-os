@@ -115,7 +115,7 @@ export function ReportsClient({ villa, villaId, reports, reservations, expenses,
       {/* Professional Header with Villa Image */}
       <div className="relative h-48 md:h-56 overflow-hidden print:hidden">
         <Image
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&h=400&fit=crop&q=80"
+          src="/images/villas/villa-pool-ocean-sunset.png"
           alt="Luxury villa"
           fill
           className="object-cover"
