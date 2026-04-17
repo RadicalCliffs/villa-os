@@ -45,11 +45,20 @@ export function ScrollAnimate({
           setIsVisible(false);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.01, rootMargin: '100px' }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+
+    // Fallback: force visible after 800ms if observer hasn't triggered
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 800);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, [once]);
 
   return (
